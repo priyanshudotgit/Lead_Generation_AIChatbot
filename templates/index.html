@@ -46,6 +46,11 @@
       chatbox.scrollTop = chatbox.scrollHeight;
     }
 
+    function resetChat() {
+    chatbox.innerHTML = ""; 
+    }
+
+
     async function sendMessage() {
       const message = input.value.trim();
       if (!message) return;
