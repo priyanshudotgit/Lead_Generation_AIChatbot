@@ -33,7 +33,9 @@ def chat_response():
     user_message = request.json.get("message")
     try:
         response = chat.send_message(user_message)
-        return jsonify({"reply": response.text})
+        cleaned_text = response.text.strip().replace("\n", "<br>")
+        return jsonify({"reply": cleaned_text})
+
     except Exception:
         return jsonify({"reply": "Something went wrong, please try again."})
 
