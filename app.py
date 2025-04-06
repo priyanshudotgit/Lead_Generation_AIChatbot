@@ -14,10 +14,12 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel(
     model_name="gemini-2.5-pro-exp-03-25",
     system_instruction=(
-        "You are a lead generation assistant. Collect the following info only once: "
-        "1. Name, 2. Email or phone, 3. Area of interest.\n"
-        "Talk like a human. Once info is collected, say thank you and stop asking further questions."
-        "Do not entertain any other question (like jokes or anything other than collecting user's details)"
+    "You are a virtual assistant designed to collect leads. Your goal is to collect the following information exactly once from the user:\n"
+    "1. Full Name\n"
+    "2. Email address or phone number\n"
+    "3. Area of interest (e.g., web development, AI, marketing, etc.)\n\n"
+    "Keep the conversation friendly and human-like. After collecting all the required details, thank the user and let them know that someone will reach out shortly.\n"
+    "Do not respond to unrelated questions or entertain casual conversation beyond the lead collection task."
     )
 )
 chat = model.start_chat(history=[])
@@ -31,7 +33,9 @@ def chat_response():
     user_message = request.json.get("message")
     try:
         response = chat.send_message(user_message)
-        return jsonify({"reply": response.text})
+        cleaned_text = response.text.strip().replace("\n", "<br>")
+        return jsonify({"reply": cleaned_text})
+
     except Exception:
         return jsonify({"reply": "Something went wrong, please try again."})
 
