@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lead Generation Chatbot</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}"> -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-4 h-screen">
   <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-xl p-6 flex flex-col h-full">
@@ -14,7 +14,7 @@
       <p class="text-sm mt-1 opacity-90">Your smart assistant to gather information</p>
     </div>
 
-    <div id="chatbox" class="h-80 overflow-y-auto border border-gray-300 p-4 mb-4 rounded space-y-2 text-sm bg-gray-50"></div>
+    <div id="chatbox" class="h-full overflow-y-auto border border-gray-300 p-4 mb-4 rounded space-y-2 text-sm bg-gray-50"></div>
 
     <div class="flex gap-2 mt-auto">
       <input 

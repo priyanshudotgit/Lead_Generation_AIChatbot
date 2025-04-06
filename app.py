@@ -18,6 +18,7 @@ model = genai.GenerativeModel(
     "1. Full Name\n"
     "2. Email address or phone number\n"
     "3. Area of interest (e.g., web development, AI, marketing, etc.)\n\n"
+    "Don't be too persistent with the information gathering, Be respectful to user's responses.\n"
     "Keep the conversation friendly and human-like. After collecting all the required details, thank the user and let them know that someone will reach out shortly.\n"
     "Do not respond to unrelated questions or entertain casual conversation beyond the lead collection task."
     )
