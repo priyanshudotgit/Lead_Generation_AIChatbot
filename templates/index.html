@@ -5,16 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lead Generation Chatbot</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
-  <!-- Use this tailwind cdn for quick access of the UI without tailwind cli installed on you system -->
   <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 <body class="bg-gray-100 p-4 h-screen">
-  <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-6">
-    <h1 class="text-2xl font-bold text-center mb-4">🤖 Lead Generation Bot</h1>
-    <div id="chatbox" class="h-80 overflow-y-auto border p-4 mb-4 rounded space-y-2 text-sm"></div>
-    <div class="flex gap-2">
-      <input id="userInput" type="text" class="flex-1 border p-2 rounded" placeholder="Ask something about lead generation..." />
-      <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 py-2 rounded">Send</button>
+  <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-xl p-6 flex flex-col h-full">
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center py-4 rounded-xl mb-4">
+      <h1 class="text-3xl font-semibold">🤖 Lead Generation Bot</h1>
+      <p class="text-sm mt-1 opacity-90">Your smart assistant to gather information</p>
+    </div>
+
+    <div id="chatbox" class="h-80 overflow-y-auto border border-gray-300 p-4 mb-4 rounded space-y-2 text-sm bg-gray-50"></div>
+
+    <div class="flex gap-2 mt-auto">
+      <input 
+        id="userInput"
+        type="text"
+        class="flex-1 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+        placeholder="Type your details here..."
+        autofocus
+      />
+      <button 
+        onclick="sendMessage()"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all"
+      >
+        Send
+      </button>
     </div>
   </div>
 
@@ -24,6 +39,8 @@
 
     function appendMessage(sender, message) {
       const div = document.createElement("div");
+      const bubbleColor = sender === "You" ? "bg-blue-100 text-blue-800" : "bg-gray-200 text-gray-800";
+      div.className = `p-2 rounded-lg max-w-xs ${bubbleColor}`;
       div.innerHTML = `<b>${sender}:</b> ${message}`;
       chatbox.appendChild(div);
       chatbox.scrollTop = chatbox.scrollHeight;
@@ -43,7 +60,7 @@
           body: JSON.stringify({ message })
         });
         const data = await res.json();
-        appendMessage("Bot", data.reply);
+        setTimeout(() => appendMessage("Bot", data.reply), 300); 
       } catch (err) {
         appendMessage("Bot", "❌ Failed to get response.");
       }
