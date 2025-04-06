@@ -15,6 +15,7 @@
     <div class="flex gap-2">
       <input id="userInput" type="text" class="flex-1 border p-2 rounded" placeholder="Ask something about lead generation..." />
       <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 py-2 rounded">Send</button>
+      <button onclick="resetChat()" class="bg-red-500 text-white px-4 py-2 rounded">Reset</button>
     </div>
   </div>
 
@@ -28,6 +29,11 @@
       chatbox.appendChild(div);
       chatbox.scrollTop = chatbox.scrollHeight;
     }
+
+    function resetChat() {
+    chatbox.innerHTML = ""; 
+    }
+
 
     async function sendMessage() {
       const message = input.value.trim();
