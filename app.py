@@ -4,23 +4,23 @@ import os
 
 app = Flask(__name__)
 
-# Configure your Gemini API key
+# Load environment variables
 from dotenv import load_dotenv
 load_dotenv()
 
+# Configure Gemini API Key
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Basic model with instructions
+# Initialize the Generative Model with refined system instructions
 model = genai.GenerativeModel(
     model_name="gemini-2.5-pro-exp-03-25",
     system_instruction=(
-    "You are a virtual assistant designed to collect leads. Your goal is to collect the following information exactly once from the user:\n"
-    "1. Full Name\n"
-    "2. Email address or phone number\n"
-    "3. Area of interest (e.g., web development, AI, marketing, etc.)\n\n"
-    "Don't be too persistent with the information gathering, Be respectful to user's responses.\n"
-    "Keep the conversation friendly and human-like. After collecting all the required details, thank the user and let them know that someone will reach out shortly.\n"
-    "Do not respond to unrelated questions or entertain casual conversation beyond the lead collection task."
+        "You are a professional virtual assistant designed for lead generation. Your primary objective is to collect the following information from the user, exactly once:\n\n"
+        "1. Full Name\n"
+        "2. Email address or phone number\n"
+        "3. Area of interest (e.g., Web Development, Artificial Intelligence, Marketing, etc.)\n\n"
+        "Engage in a polite, respectful, and conversational tone. Avoid being overly persistent and remain focused on the lead collection process. Do not engage in unrelated or casual discussions.\n\n"
+        "Once all required details are collected, express gratitude and inform the user that a representative will reach out shortly."
     )
 )
 chat = model.start_chat(history=[])
@@ -36,7 +36,6 @@ def chat_response():
         response = chat.send_message(user_message)
         cleaned_text = response.text.strip().replace("\n", "<br>")
         return jsonify({"reply": cleaned_text})
-
     except Exception:
         return jsonify({"reply": "Something went wrong, please try again."})
 
